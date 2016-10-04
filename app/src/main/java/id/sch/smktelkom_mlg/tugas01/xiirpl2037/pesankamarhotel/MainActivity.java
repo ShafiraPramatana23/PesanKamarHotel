@@ -49,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void doClick() {
-        String nama = etNama.getText().toString();
-        int tahun = Integer.parseInt(etTL.getText().toString());
-        int usia = 2016 - tahun;
-        tvHas.setText(nama + " berusia " + usia + " tahun");
+        if(isValid()) {
+            String nama = etNama.getText().toString();
+            int tahun = Integer.parseInt(etTL.getText().toString());
+            int usia = 2016 - tahun;
+            tvHas.setText(nama + " berusia " + usia + " tahun");
+        }
 
         String hasil = null;
         if (rbL.isChecked()) {
@@ -78,5 +80,44 @@ public class MainActivity extends AppCompatActivity {
 
         tvLisah.setText("Kapasitas Kamar yang dipilih : "+spKamar.getSelectedItem().toString());
 
+    }
+
+    private boolean isValid() {
+        boolean valid = true;
+
+        String nama = etNama.getText().toString();
+        String tahun = etTL.getText().toString();
+
+        if(nama.isEmpty())
+        {
+            etNama.setError("Nama belum diisi");
+            valid = false;
+        }
+        else if(nama.length()<3)
+        {
+            etNama.setError("Nama minimal 3 karakter");
+            valid = false;
+        }
+        else
+        {
+            etNama.setError(null);
+        }
+
+        if(tahun.isEmpty())
+        {
+            etTL.setError("Tahun Kelahiran belum diisi");
+            valid = false;
+        }
+        else if(tahun.length()!=4)
+        {
+            etTL.setError("Format Tahun Kelahiran bukan yyyy");
+            valid = false;
+        }
+        else
+        {
+            etTL.setError(null);
+        }
+
+        return valid;
     }
 }
